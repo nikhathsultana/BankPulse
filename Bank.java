@@ -5,9 +5,22 @@ public class Bank {
 
     private List<Account> accounts = new ArrayList<>();
 
+    public Bank() {
+    
+    }
+    
     private int nextAccountNumber = 1001;
 
-    // Open a new account
+        public Bank(List<Account> accounts) {
+        this.accounts = accounts;
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber() >= nextAccountNumber) {
+                nextAccountNumber = account.getAccountNumber() + 1;
+            }
+        }
+    }
+
     public Account openAccount(String name) {
 
         Account account = new Account(nextAccountNumber, name);
@@ -19,7 +32,6 @@ public class Bank {
         return account;
     }
 
-    // Find an account
     public Account findAccount(int accountNumber) {
 
         for (Account account : accounts) {
@@ -32,7 +44,7 @@ public class Bank {
         return null;
     }
 
-    // List all accounts
+    
     public void listAccounts() {
 
         if (accounts.isEmpty()) {
@@ -40,11 +52,15 @@ public class Bank {
             return;
         }
 
+        System.out.println("\n===== ACCOUNT HOLDERS =====");
+
         for (Account account : accounts) {
-
-            account.displayAccount();
-
-            System.out.println("--------------------");
+            System.out.println("- " + account.getHolderName());
         }
+    }
+
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }
